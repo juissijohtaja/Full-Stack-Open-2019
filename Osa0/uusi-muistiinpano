@@ -1,0 +1,33 @@
+selain->palvelin: HTTP POST /new_note
+note over selain:
+Selain lähettää uuden muistiinpanon 
+palvelimelle POST-metodilla
+end note
+palvelin-->selain: HTTP 302 Found
+note over palvelin:
+Palvelin palauttaa viestin 
+onnistuneesta lähetyksestä ja 
+ohjaa selaimen osoitteeseen /notes
+end note
+note over selain:
+Selain päivittää sivun sisällön
+end note
+selain->palvelin: HTTP GET /notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET /main.css
+palvelin-->selain: CSS-koodi
+selain->palvelin: HTTP GET /main.js
+palvelin-->selain: JavaScript-koodi
+selain->palvelin: HTTP GET /data.json
+note over palvelin:
+Palvelin käsittelee JSON-pyynnön ja 
+paluttaa kaikki muistiinpanot, 
+joista viimeisin on äsken syötetty viesti
+end note
+palvelin-->selain: [..., {content: "Terve!", date: "2019-03-22T13:03:22.738Z"}]
+note over selain:
+Selain käsittelee kaikki viestit 
+ja listaa ne näkyviin sivulle. 
+Käyttäjän syöttämä viesti "Terve!" 
+kirjoitetaan sivulle viimeiseksi
+end note
