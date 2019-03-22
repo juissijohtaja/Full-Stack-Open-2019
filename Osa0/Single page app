@@ -1,0 +1,19 @@
+note over selain:
+Selain pyytää palvelimelta sivun sisällön 
+end note
+selain->palvelin: HTTP GET /spa
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET /main.css
+palvelin-->selain: CSS-koodi
+selain->palvelin: HTTP GET /spa.js
+palvelin-->selain: JavaScript-koodi
+selain->palvelin: HTTP GET /data.json
+note over palvelin:
+Palvelin käsittelee JSON-pyynnön ja 
+paluttaa kaikki muistiinpanot
+end note
+palvelin-->selain: [..., {content: "Terve!", date: "2019-03-22T13:03:22.738Z"}]
+note over selain:
+Selain käsittelee kaikki viestit 
+ja listaa ne näkyviin sivulle.
+end note
