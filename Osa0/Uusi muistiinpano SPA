@@ -1,0 +1,20 @@
+note over selain:
+Selain lähettää palvelimelle 
+uuden muistiinpanon "Terve!"  
+end note
+selain->palvelin: HTTP GET /new_note_spa
+palvelin-->selain: 201 Created
+note over selain:
+Selain saa tiedon uudesta muistiinpanosta
+ja pyytää palvelimelta päivittynyttä tiedostoa
+end note
+selain->palvelin: HTTP GET /data.json
+note over palvelin:
+Palvelin käsittelee JSON-pyynnön ja 
+paluttaa ainoastaan uuden muistiinpanon
+end note
+palvelin-->selain: {"content":"Terve!","date":"2019-03-22T11:29:25.110Z"}
+note over selain:
+Selain käsittelee uuden muistiinpanon 
+ja listaa sen näkyviin sivulle.
+end note
