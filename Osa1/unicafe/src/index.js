@@ -82,8 +82,8 @@ const App = () => {
       <h2>Statistiikka</h2>
       <Statistics good={good} neutral={neutral} bad={bad} />
 
-      <Button handleClick={() => setToValueGood(0) & setToValueNeutral(0) & setToValueBad(0)} text="Nollaa kaikki" />
-      <Button handleClick={() => setToValueGood(good + 10) & setToValueNeutral(neutral + 10) & setToValueBad(bad + 10)} text="Lisää 10 kaikkiin" />
+      {/* <Button handleClick={() => setToValueGood(0) & setToValueNeutral(0) & setToValueBad(0)} text="Nollaa kaikki" />
+      <Button handleClick={() => setToValueGood(good + 10) & setToValueNeutral(neutral + 10) & setToValueBad(bad + 10)} text="Lisää 10 kaikkiin" /> */}
 
     </div>
   )
