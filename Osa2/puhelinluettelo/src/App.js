@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Input from './components/Input'
+import Form from './components/Form'
 import RowsFiltered from './components/RowsFiltered'
 
 const App = () => {
@@ -55,13 +56,7 @@ const App = () => {
       <h1>Puhelinluettelo</h1>
       <Input text="Rajaa näytettäviä" value={newFilter} handler={handleFilterChange} />
       <h2>Lisää uusi</h2>
-      <form onSubmit={addName}>
-      <Input text="Nimi" value={newName} handler={handleNameChange} />
-      <Input text="Numero" value={newNumber} handler={handleNumberChange} />
-        <div>
-          <button type="submit">lisää</button>
-        </div>
-      </form>
+      <Form submit={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numerot</h2>
       <RowsFiltered filter={newFilter} persons={persons} />
     </div>
