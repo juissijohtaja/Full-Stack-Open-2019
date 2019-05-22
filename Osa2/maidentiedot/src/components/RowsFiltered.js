@@ -5,13 +5,13 @@ import Country from './Country';
 const RowsFiltered = (props) => {
     console.log("RowsFiltered newFilter", props.filter)
     const filter = props.filter
-    const persons = props.persons
-    const newList = persons.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())).map(i =>
+    const countries = props.countries
+    const newList = countries.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())).map(i =>
         <Name key={i.name} name={i.name} />
         )
     console.log("newList", newList)
     console.log("newList.length", newList.length)
-    const newCountry = persons.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())).map(i =>
+    const newCountry = countries.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())).map(i =>
         <Country key={i.name} name={i.name} capital={i.capital} population={i.population} languages={i.languages} flag={i.flag} />
         )
     const listingMany = (

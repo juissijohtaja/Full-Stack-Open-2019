@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* CUSTOM STYLES */
+
+@import url('https://fonts.googleapis.com/css?family=Fauna+One&display=swap');
+
+
+#root{
+  width: 600px;
+  margin: 100px auto 0;
+  padding: 20px;
+  text-align: left;
+  background-color: #F2937E;
+  border: 20px solid #F2C49B;
+  font-family: 'Fauna One', serif;
+}
+body {
+  background-color: #DCF2DE;
+  color: #010326;
+}
+ul {
+  margin: 0px 0 20px;
+  padding-left: 0;
+}
+ul li {
+  text-align: left;
+  list-style-type: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+.total {
+  font-size: 1.5em;
+  font-weight: 500;
+}
