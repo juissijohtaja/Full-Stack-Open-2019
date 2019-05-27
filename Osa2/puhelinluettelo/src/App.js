@@ -33,9 +33,15 @@ const App = () => {
         number: newNumber
        }
       console.log('newPerson', newPerson)
-      setPersons(persons.concat(newPerson))
+      /* setPersons(persons.concat(newPerson))
+      setNewName('')
+      setNewNumber('') */
+
+      axios.post('http://localhost:3001/persons', newPerson).then(response => {
+      setPersons(persons.concat(response.data))
       setNewName('')
       setNewNumber('')
+    })
     } else {
       alert(`${newName} on jo luettelossa tai nimi/numero puuttuu`)
     }
