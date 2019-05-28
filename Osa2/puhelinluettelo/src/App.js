@@ -3,6 +3,7 @@ import axios from 'axios'
 import Input from './components/Input'
 import Form from './components/Form'
 import RowsFiltered from './components/RowsFiltered'
+import personService from './services/persons'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -10,17 +11,14 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
-  }
   
-  useEffect(hook, [])
+  useEffect(() => {
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+  }, [])
 
   console.log('render', persons.length, 'persons')
 
@@ -33,12 +31,9 @@ const App = () => {
         number: newNumber
        }
       console.log('newPerson', newPerson)
-      /* setPersons(persons.concat(newPerson))
-      setNewName('')
-      setNewNumber('') */
 
-      axios.post('http://localhost:3001/persons', newPerson).then(response => {
-      setPersons(persons.concat(response.data))
+      personService.create(newPerson).then(returnedPersons => {
+      setPersons(persons.concat(returnedPersons))
       setNewName('')
       setNewNumber('')
     })
