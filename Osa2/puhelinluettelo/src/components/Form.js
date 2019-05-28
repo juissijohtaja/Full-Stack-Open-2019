@@ -6,7 +6,7 @@ const Form = (props) => (
     <form onSubmit={props.submit}>
       <Input text="Nimi" value={props.newName} handler={props.handleNameChange} />
       <Input text="Numero" value={props.newNumber} handler={props.handleNumberChange} />  
-      <Button />
+      <Button text="Lisää" />
     </form>
 )
 export default Form

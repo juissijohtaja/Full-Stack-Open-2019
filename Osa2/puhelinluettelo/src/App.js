@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Input from './components/Input'
 import Form from './components/Form'
 import RowsFiltered from './components/RowsFiltered'
@@ -10,7 +9,6 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
-  
   
   useEffect(() => {
     personService
@@ -61,6 +59,26 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
+  const logDelete = (event) => {
+    event.preventDefault()
+    console.log("Remove ID")
+    const id = event.target.getAttribute("id");
+    const name = event.target.getAttribute("name");
+    console.log("ID", id)
+    console.log("Name", name)
+    
+    if (window.confirm(`Poistetaanko ${name}?`)) {
+      personService
+        .remove(id)
+        .then(() => personService.getAll())
+        .then(remainingPersons => {
+          setPersons(remainingPersons)
+        })
+    }
+  }
+
+  
+
   return (
     <div>
       <h1>Puhelinluettelo</h1>
@@ -68,7 +86,7 @@ const App = () => {
       <h2>Lisää uusi</h2>
       <Form submit={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numerot</h2>
-      <RowsFiltered filter={newFilter} persons={persons} />
+      <RowsFiltered filter={newFilter} persons={persons} eventHandler={logDelete} />
     </div>
   )
 

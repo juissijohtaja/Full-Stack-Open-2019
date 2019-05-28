@@ -1,10 +1,9 @@
 import React from 'react'
 
-const Button = () => ( 
-  <div>
-    <button type="submit">lisää</button>
-  </div>
+const Button = (props) => ( 
+  <>
+    <button type="submit">{props.text}</button>
+  </>
 )
-
 
 export default Button
