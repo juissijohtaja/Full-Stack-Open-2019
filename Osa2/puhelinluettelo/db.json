@@ -14,6 +14,21 @@
       "name": "Arto Järvinen",
       "number": "040-123456",
       "id": 3
+    },
+    {
+      "name": "kakka",
+      "number": "444",
+      "id": 5
+    },
+    {
+      "name": "kulli",
+      "number": "444",
+      "id": 7
+    },
+    {
+      "name": "koira",
+      "number": "666",
+      "id": 8
     }
   ]
 }

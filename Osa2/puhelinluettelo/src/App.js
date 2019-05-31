@@ -23,20 +23,39 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     console.log('persons', persons)
-    if (!persons.some(i => i.name === newName) && newName.length > 0 && newNumber.length > 0) {
+    if (!persons.some(i => i.name.toLowerCase() === newName.toLowerCase()) && newName.length > 0 && newNumber.length > 0) {
       const newPerson = { 
         name: newName,
         number: newNumber
        }
       console.log('newPerson', newPerson)
 
-      personService.create(newPerson).then(returnedPersons => {
-      setPersons(persons.concat(returnedPersons))
-      setNewName('')
-      setNewNumber('')
-    })
+      personService
+        .create(newPerson).then(returnedPersons => {  
+        setPersons(persons.concat(returnedPersons))
+        setNewName('')
+        setNewNumber('')
+      })
+    } else if(persons.some(i => i.name.toLowerCase() === newName.toLowerCase())) {
+      // alert(`${newName} on jo luettelossa`)
+      if (window.confirm(`${newName} on jo luettelossa. Korvataanko vanha uudella numerolla?`)) {
+        const newPerson = { 
+          name: newName,
+          number: newNumber
+         }
+        const personUpdate = persons.find(i => i.name.toLowerCase() === newName.toLowerCase())
+        console.log("personUpdate", personUpdate)
+        const id = personUpdate.id
+        console.log("id", id)
+        personService
+        .update(id, newPerson)
+        .then(() => personService.getAll())
+        .then(remainingPersons => {
+          setPersons(remainingPersons)
+        })
+      }
     } else {
-      alert(`${newName} on jo luettelossa tai nimi/numero puuttuu`)
+      alert(`Nimi tai numero puuttuu`)
     }
   }
 
@@ -59,7 +78,7 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
-  const logDelete = (event) => {
+  const handleDeleteName = (event) => {
     event.preventDefault()
     console.log("Remove ID")
     const id = event.target.getAttribute("id");
@@ -86,7 +105,7 @@ const App = () => {
       <h2>Lisää uusi</h2>
       <Form submit={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numerot</h2>
-      <RowsFiltered filter={newFilter} persons={persons} eventHandler={logDelete} />
+      <RowsFiltered filter={newFilter} persons={persons} eventHandler={handleDeleteName} />
     </div>
   )
 
