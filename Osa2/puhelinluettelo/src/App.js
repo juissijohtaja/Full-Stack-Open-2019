@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Input from './components/Input'
 import Form from './components/Form'
 import RowsFiltered from './components/RowsFiltered'
+import Notification from './components/Notification'
+
 import personService from './services/persons'
 
 const App = () => {
@@ -9,6 +11,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ notification, setNotification ] = useState({message: null, style: null})
+
   
   useEffect(() => {
     personService
@@ -36,8 +40,19 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
+
+      const newNotification = { 
+        message: `Henkilö '${newPerson.name}' lisättiin`,
+        style: "success"
+       }
+
+      setNotification( newNotification )
+
+      setTimeout(() => {
+        setNotification({message: null, style: null})
+      }, 5000)
+
     } else if(persons.some(i => i.name.toLowerCase() === newName.toLowerCase())) {
-      // alert(`${newName} on jo luettelossa`)
       if (window.confirm(`${newName} on jo luettelossa. Korvataanko vanha uudella numerolla?`)) {
         const newPerson = { 
           name: newName,
@@ -52,10 +67,48 @@ const App = () => {
         .then(() => personService.getAll())
         .then(remainingPersons => {
           setPersons(remainingPersons)
+          const newNotification = { 
+            message: `Henkilö '${newPerson.name}' muutettiin`,
+            style: "success"
+          }
+    
+          setNotification( newNotification )
+    
+          setTimeout(() => {
+            setNotification({message: null, style: null})
+          }, 5000)
         })
+        .catch(error => {
+          /* alert(
+            `the person '${newName}' was already deleted from server`
+          ) */
+          const newNotification = { 
+            message: `Henkilö '${newPerson.name}' oli jo poistettu`,
+            style: "failure"
+          }
+    
+          setNotification( newNotification )
+    
+          setTimeout(() => {
+            setNotification({message: null, style: null})
+          }, 5000)
+          setPersons(persons.filter(n => n.id !== id))
+          
+        })
+
       }
     } else {
-      alert(`Nimi tai numero puuttuu`)
+      // alert(`Nimi tai numero puuttuu`)
+      const newNotification = { 
+        message: `Nimi tai numero puuttuu`,
+        style: "failure"
+      }
+
+      setNotification( newNotification )
+
+      setTimeout(() => {
+        setNotification({message: null, style: null})
+      }, 5000)
     }
   }
 
@@ -94,13 +147,24 @@ const App = () => {
           setPersons(remainingPersons)
         })
     }
-  }
 
-  
+    const newNotification = { 
+      message: `Henkilö '${name}' poistettiin`,
+      style: "success"
+     }
+
+    setNotification( newNotification )
+
+    setTimeout(() => {
+      setNotification({message: null, style: null})
+    }, 5000)
+
+  }
 
   return (
     <div>
       <h1>Puhelinluettelo</h1>
+      <Notification notification={notification} />
       <Input text="Rajaa näytettäviä" value={newFilter} handler={handleFilterChange} />
       <h2>Lisää uusi</h2>
       <Form submit={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
