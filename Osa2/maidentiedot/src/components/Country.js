@@ -26,4 +26,3 @@ const Country = ({ name, capital, population, languages, flag }) => {
   }
 
   export default Country
-  
