@@ -26,11 +26,19 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
+  const handleShowDetails = (event) => {
+    event.preventDefault()
+    console.log("Show Details")
+    const name = event.target.getAttribute("name");
+    console.log("Name", name)
+    setNewFilter(name)
+  }
+
   return (
     <div>
       <h1>Country Search</h1>
       <Input text="Find coutries" value={newFilter} handler={handleFilterChange} />
-      <RowsFiltered filter={newFilter} countries={countries} />
+      <RowsFiltered filter={newFilter} countries={countries} eventHandler={handleShowDetails} />
     </div>
   )
 
