@@ -39,18 +39,39 @@ const App = () => {
         setPersons(persons.concat(returnedPersons))
         setNewName('')
         setNewNumber('')
+        console.log("Great Success!")
+
+        const newNotification = { 
+          message: `Henkilö '${newPerson.name}' lisättiin`,
+          style: "success"
+         }
+  
+        setNotification( newNotification )
+  
+        setTimeout(() => {
+          setNotification({message: null, style: null})
+        }, 5000)
+        
+      })
+      .catch(error => {
+        // pääset käsiksi palvelimen palauttamaan virheilmoitusolioon näin
+        console.log("Vittu virhe!!")
+        console.log(error.response.data)
+
+        const newNotification = { 
+          message: `${error.response.data.error}`,
+          style: "failure"
+         }
+  
+        setNotification( newNotification )
+  
+        setTimeout(() => {
+          setNotification({message: null, style: null})
+        }, 5000)
+
       })
 
-      const newNotification = { 
-        message: `Henkilö '${newPerson.name}' lisättiin`,
-        style: "success"
-       }
-
-      setNotification( newNotification )
-
-      setTimeout(() => {
-        setNotification({message: null, style: null})
-      }, 5000)
+      
 
     } else if(persons.some(i => i.name.toLowerCase() === newName.toLowerCase())) {
       if (window.confirm(`${newName} on jo luettelossa. Korvataanko vanha uudella numerolla?`)) {
